@@ -3,6 +3,7 @@ from textbox import TextBox
 from wizard import Wizard
 from game_logic import Game_Logic
 from spellbook import Spellbook
+from intro import play_intro
 import time
 
 def run_game():
@@ -33,6 +34,8 @@ def run_game():
     target_num = 2                                          #index of what enemy to target
 
     shifting = False                                        #is the shift key being held
+
+    play_intro(screen)
 
     while True:
         #print(pygame.time.get_ticks()) -> use if statements to do constant attacking
