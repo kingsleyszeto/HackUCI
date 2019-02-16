@@ -8,6 +8,7 @@ import pygame
 class Game_Logic:
     game_spells = {'burn': 'fire', 'soak': 'water', 'wood': 'earth', 'requiem': 'dark', 'bright': 'light',
                    'heal': 'heal'}
+    prefix = {'explosive': 'aoe'}
     elements = {'water': 'fire', 'fire': 'earth', 'earth': 'water', 'light': 'dark', 'dark': 'light'}
 
 
@@ -29,7 +30,17 @@ class Game_Logic:
             m_c.exec_turn(target, spell)
             print(True)
         else:
-            m_c.hp -= 5
+            m_c.mistake()
+
+    def check_valid_prefix_spell(self, m_c, prefix, spell, targets, target):
+        if spell in m_c.spells and prefix in m_c.prefixes:
+            m_c.exec_turn(targets[target], spell)
+            if prefix == 'multi':
+                for target in targets:
+                    m_c.exec_turn(target, spell)
+            print(True)
+        else:
+            m_c.mistake()
 
     def ai_constant_attack(self, enemy_party, m_c):
         for enemy in enemy_party:
@@ -46,13 +57,14 @@ class Game_Logic:
     def all_enemies_dead(self, enemy_party):
         return all([not self.health_is_gt_0(enemy) for enemy in enemy_party])
 
-    def new_enemies(self, level):
-            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2 ) for i in range(5)]
+    def new_enemies(self, level, text_box):
+            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2,text_box) for i in range(5)]
 
 
 
-    def update_screen(self, screen, enemy_party, current_pics, target_num): #animation
+    def update_screen(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic): #animation
           #may move into settings
+        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (275, 220))".format(element=character_party[0].element))
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
                 exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element = enemy_party[i].element))

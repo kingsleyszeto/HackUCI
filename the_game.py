@@ -21,10 +21,11 @@ def run_game():
 
     round = 1
 
-    character_party = [Wizard('fire', 5, True)]            #player's party (index always 0 unless we extend on game)
-    enemy_party = [Wizard('earth', 1), Wizard('water', 1), Wizard('fire',1), Wizard('dark',1), Wizard('light',1)]       #Max size for party is 5
+    character_party = [Wizard('fire', 5, text_box, True)]            #player's party (index always 0 unless we extend on game)
+    enemy_party = [Wizard('earth', 1, text_box), Wizard('water', 1, text_box), Wizard('fire',1, text_box), Wizard('dark',1, text_box), Wizard('light',1, text_box)]       #Max size for party is 5
 
     current_pics = [0, 24, 12, 16, 8]                       #for animation purposes
+    wizard_element_pic = 0
     target_num = 2                                          #index of what enemy to target
 
     shifting = False                                        #is the shift key being held
@@ -36,7 +37,7 @@ def run_game():
         screen.blit(background, (0, 0))
         GL.update_HP_bar(screen, character_party[0])
 
-        GL.update_screen(screen, enemy_party, current_pics, target_num)     #animates all characters
+        GL.update_screen(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)     #animates all characters
 
 
         screen.blit(icon, (150, 250) )                                      #player character
@@ -44,6 +45,8 @@ def run_game():
 
         for i in range(len(current_pics)):
             current_pics[i] = current_pics[i] + 2 if current_pics[i] <= 27 else 0   # for animation
+
+        wizard_element_pic = wizard_element_pic + 2 if wizard_element_pic <= 27 else 0
 
         text_box.update(screen)
 
@@ -63,7 +66,10 @@ def run_game():
                     target_num = new_index
                     print('new target num', target_num)
                 if spell != None:
-                    GL.check_valid_spell(character_party[0], spell, enemy_party[target_num])
+                    if spell.count(' ') == 1:
+                        GL.check_valid_prefix_spell(character_party[0], spell.split()[0], spell.split()[1], enemy_party, target_num)
+                    else:
+                        GL.check_valid_spell(character_party[0], spell, enemy_party[target_num])
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
                 shifting = True
             elif event.type == pygame.KEYUP and event.key == pygame.K_LSHIFT:
@@ -82,7 +88,7 @@ def run_game():
 
         if GL.all_enemies_dead(enemy_party):
             round += 1
-            enemy_party = GL.new_enemies(round)
+            enemy_party = GL.new_enemies(round, text_box)
 
         print(character_party[0].hp)
         print(target_num)
