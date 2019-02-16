@@ -1,6 +1,7 @@
 from random import randint
 from wizard import Wizard
 import pygame
+import time
 
 
 
@@ -19,35 +20,55 @@ class Game_Logic:
         self.light_pics = [pygame.image.load('sprites/smalllight1.png'), pygame.image.load('sprites/smalllight2.png')]
         self.dark_pics = [pygame.image.load('sprites/smalldark1.png'), pygame.image.load('sprites/smalldark2.png')]
         self.fire_en = [pygame.image.load('sprites/fireen1.png'), pygame.image.load('sprites/fireen2.png')]
+        self.fire_en_atk = pygame.image.load('sprites/fireenatk.png')
+        self.fire_en_dead = pygame.image.load('sprites/fireendead.png')
         self.water_en = [pygame.image.load('sprites/wateren1.png'), pygame.image.load('sprites/wateren2.png')]
+        self.water_en_atk = pygame.image.load('sprites/waterenatk.png')
+        self.water_en_dead = pygame.image.load('sprites/waterendead.png')
         self.earth_en = [pygame.image.load('sprites/earthen1.png'), pygame.image.load('sprites/earthen2.png')]
+        self.earth_en_atk = pygame.image.load('sprites/earthenatk.png')
+        self.earth_en_dead = pygame.image.load('sprites/earthendead.png')
         self.light_en = [pygame.image.load('sprites/lighten1.png'), pygame.image.load('sprites/lighten2.png')]
+        self.light_en_atk = pygame.image.load('sprites/lightenatk.png')
+        self.light_en_dead = pygame.image.load('sprites/lightendead.png')
         self.dark_en = [pygame.image.load('sprites/darken1.png'), pygame.image.load('sprites/darken2.png')]
+        self.dark_en_atk = pygame.image.load('sprites/darkenatk.png')
+        self.dark_en_dead = pygame.image.load('sprites/darkendead.png')
         self.boxes = [pygame.image.load('sprites/RedBox1.png'), pygame.image.load('sprites/RedBox2.png')]
 
     def check_valid_spell(self, m_c, spell, target):
-        if spell in m_c.spells:
+        if spell in m_c.game_spells:
             m_c.exec_turn(target, spell)
             print(True)
         else:
             m_c.mistake()
 
     def check_valid_prefix_spell(self, m_c, prefix, spell, targets, target):
-        if spell in m_c.spells and prefix in m_c.prefixes:
-            m_c.exec_turn(targets[target], spell)
-            if prefix == 'multi':
+        if spell in m_c.game_spells:
+            if prefix == 'ledo magis hosti':
                 for target in targets:
-                    m_c.exec_turn(target, spell)
+                    m_c.exec_aoe(target, spell)
             print(True)
         else:
             m_c.mistake()
 
-    def ai_constant_attack(self, enemy_party, m_c):
-        for enemy in enemy_party:
-            self.ai_choose_spell(enemy, m_c)
+    def ai_constant_attack(self, screen, enemy_party, m_c):
+        for count, enemy in enumerate(enemy_party):
+            self.ai_choose_spell( enemy, m_c)
 
-    def ai_choose_spell(self, enemy, m_c):                              #add healing
-        enemy.exec_turn(m_c, enemy.spells[randint(0, len(enemy.spells)  - 1)] )
+    def ai_choose_spell(self, enemy, m_c):
+        if enemy.element is 'fire':
+            spell = 'ambustum'
+        elif enemy.element is 'water':
+            spell = 'macerari'
+        elif enemy.element is 'earth':
+            spell = 'planicia'
+        elif enemy.element is 'light':
+            spell = 'opscurum'
+        elif enemy.element is 'dark':
+            spell = 'illustris'
+        if self.health_is_gt_0(enemy):
+            enemy.exec_turn(m_c, spell)
 
     def health_is_gt_0(self, unit):
         if unit.hp > 0:
@@ -64,11 +85,25 @@ class Game_Logic:
 
     def update_screen(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic): #animation
           #may move into settings
-        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (275, 220))".format(element=character_party[0].element))
+        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
                 exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element = enemy_party[i].element))
                 exec("screen.blit(self.{element}_en[current_pics[i]//15], (i*100 + 10, 95))".format(element = enemy_party[i].element))
+            else:
+                exec("screen.blit(self.{element}_en_dead, (i*100 + 10, 95))".format(element=enemy_party[i].element))
+        screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100,55))
+
+    def update_screen_attacking(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic): #animation
+          #may move into settings
+        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
+        for i in range(len(enemy_party)):
+            if self.health_is_gt_0(enemy_party[i]):
+                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element = enemy_party[i].element))
+                exec("screen.blit(self.{element}_en_atk, (i*100 + 10, 95))".format(element = enemy_party[i].element))
+            else:
+                exec("screen.blit(self.{element}_en_dead, (i*100 + 10, 95))".format(element=enemy_party[i].element))
+
         screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100,55))
 
     def key_LR(self, event, target_num, enemy_party):    #moves the target and red box
@@ -99,13 +134,10 @@ class Game_Logic:
 
     def update_HP_bar(self, screen, m_c):
         m_c_hp = m_c.hp
-        HP_bar = pygame.Rect((50, 450 - 5*m_c_hp), (15, m_c_hp*5))
+        HP_bar = pygame.Rect((50, 450 - 200*(m_c_hp/m_c.max_hp)), (15, 200*(m_c_hp/m_c.max_hp)))
         screen.fill((255, 100, 100), HP_bar)
 
-
-
-
-
-
-
-
+    def update_enemy_HP_bar(self, screen, enemy_party):
+        for i in range(len(enemy_party)):
+            if self.health_is_gt_0(enemy_party[i]):
+                exec("screen.fill((255,100,100), pygame.Rect(( i * 100 + 30, 200), ({enemy} * 2, 6)))".format(enemy = enemy_party[i].hp))
