@@ -44,7 +44,7 @@ class Game_Logic:
             m_c.mistake()
 
     def check_valid_prefix_spell(self, m_c, prefix, spell, targets, target):
-        if spell in m_c.game_spells:
+        if spell in m_c.game_spells and prefix in Wizard.game_prefixes:
             if prefix == 'ledo magis hosti':
                 for target in targets:
                     m_c.exec_aoe(target, spell)
@@ -78,8 +78,8 @@ class Game_Logic:
     def all_enemies_dead(self, enemy_party):
         return all([not self.health_is_gt_0(enemy) for enemy in enemy_party])
 
-    def new_enemies(self, level, text_box):
-            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2,text_box) for i in range(5)]
+    def new_enemies(self, level, text_box, difficulty_scaling):
+            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2,text_box) for i in range(randint(0, difficulty_scaling))]
 
 
 
@@ -110,21 +110,21 @@ class Game_Logic:
         tn = target_num
         if event.key == pygame.K_RIGHT:
             tn += 1
-            if tn > 4:
+            if tn > len(enemy_party) - 1:
                 tn = 0
             while(not self.health_is_gt_0(enemy_party[tn])):
                 tn += 1
-                if tn > 4:
+                if tn > len(enemy_party) - 1:
                     tn = 0
             return tn
         elif event.key == pygame.K_LEFT:
             tn -= 1
             if tn < 0:
-                tn = 4
+                tn = len(enemy_party) - 1
             while (not self.health_is_gt_0(enemy_party[tn])):
                 tn -= 1
                 if tn < 0:
-                    tn = 4
+                    tn = len(enemy_party) - 1
             return tn
 
     def gen_new_level(self, level_num, enemy_party): #returns a new enemy party list when the one in the current level has died
@@ -140,4 +140,4 @@ class Game_Logic:
     def update_enemy_HP_bar(self, screen, enemy_party):
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.fill((255,100,100), pygame.Rect(( i * 100 + 30, 200), ({enemy} * 2, 6)))".format(enemy = enemy_party[i].hp))
+                exec("screen.fill((255,100,100), pygame.Rect(( i * 100 + 30, 200), (({enemy}.hp/{enemy}.max_hp) * 40, 6)))".format(enemy = 'enemy_party[i]'))

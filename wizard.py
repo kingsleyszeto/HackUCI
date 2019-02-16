@@ -44,7 +44,7 @@ class Wizard():
             else:
                 damage = int((2 * self.damage - self.defense) // 2)
             target.hp -= damage
-            if self.is_main: self.text_box.change_console('Zalvin casts ' + spell + '!')
+            if self.is_main: self.text_box.change_console('Zalvin casts ' + Wizard.spell_to_text[Wizard.game_spells[spell]] + '!')
 
     def mistake(self):
         self.hp -= 5
@@ -70,6 +70,9 @@ class Wizard():
             target.hp -= damage
             if self.is_main: self.text_box.change_console(
                 'Zalvin casts ' + Wizard.aoe_to_text[Wizard.game_spells[spell]] + '!')
+
+    def set_element(self, new_element):
+        self.element = Wizard.game_spells[new_element]
 
 
 

@@ -3,13 +3,11 @@ from textbox import TextBox
 from wizard import Wizard
 from game_logic import Game_Logic
 from spellbook import Spellbook
-import time
 
 def run_game():
     background = pygame.image.load('sprites/bkg.png')
     background_red = pygame.image.load('sprites/bkgred.png')
     background_dark_red = pygame.image.load('sprites/bkgdarkred.png')
-    background_light = pygame.image.load('sprites/bkglight.png')
     pygame.init()
     GL = Game_Logic()
     screen = pygame.display.set_mode((510,500))
@@ -17,25 +15,36 @@ def run_game():
     spellbook = Spellbook(screen)
     pygame.display.flip()
     pygame.display.set_caption('Wizards')
-    icon = pygame.image.load('sprites/logo.png')
+    icon = pygame.image.load('sprites/logo1.png')
+    icon2 = pygame.image.load('sprites/logo2.png')
     pygame.display.set_icon(icon)
-
-    prev_time = pygame.time.get_ticks()                     #Used for getting time between minion attacks
+    current_icon = icon
+    prev_char_animation = pygame.time.get_ticks() #Used for getting time between character animation movements
+    prev_time = pygame.time.get_ticks()  #Used for getting time between minion attacks
     text_box = TextBox(screen)
 
     round = 1
 
     character_party = [Wizard('dark', 5, text_box, 140, True)]            #player's party (index always 0 unless we extend on game)
-    enemy_party = [Wizard('earth', 1, text_box), Wizard('water', 1, text_box), Wizard('fire',1, text_box), Wizard('dark',1, text_box), Wizard('light',1, text_box)]       #Max size for party is 5
-
+    #enemy_party = [Wizard('earth', 1, text_box), Wizard('water', 1, text_box), Wizard('fire',1, text_box), Wizard('dark',1, text_box), Wizard('light',1, text_box)]       #Max size for party is 5
+    enemy_party = []
     current_pics = [0, 24, 12, 16, 8]                       #for animation purposes
     wizard_element_pic = 0
-    target_num = 2                                          #index of what enemy to target
+    target_num = 0                                         #index of what enemy to target
 
     shifting = False                                        #is the shift key being held
 
+
+    difficulty_scaling = 1                                  #current loop, used for difficulty scaling
+
     while True:
         #print(pygame.time.get_ticks()) -> use if statements to do constant attacking
+
+        if GL.all_enemies_dead(enemy_party):
+            enemy_party = GL.new_enemies(round, text_box, difficulty_scaling)
+            round += 1
+            if difficulty_scaling < 5:
+                difficulty_scaling = round//10 + 1
 
         screen.fill((0,0,0))
         if character_party[0].hp > character_party[0].max_hp*0.4:
@@ -48,8 +57,19 @@ def run_game():
         GL.update_enemy_HP_bar(screen, enemy_party)
         GL.update_screen(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)     #animates all characters
 
-
-        screen.blit(icon, (150, 250) )                                      #player character
+        if pygame.time.get_ticks() - prev_char_animation > 300:
+            prev_char_animation = pygame.time.get_ticks()
+            if current_icon == icon:
+                screen.blit(icon2, (154, 250))  #player character
+                current_icon = icon2
+            else:
+                screen.blit(icon, (150, 250) )
+                current_icon = icon
+        else:
+            if current_icon == icon:
+                screen.blit(current_icon, (150, 250))
+            if current_icon == icon2:
+                screen.blit(current_icon, (154, 250))
 
 
         for i in range(len(current_pics)):
@@ -75,7 +95,9 @@ def run_game():
                     target_num = new_index
                     print('new target num', target_num)
                 if spell != None:
-                    if spell.count(' ') >= 1:
+                    if spell.count(' ') == 1 and spell.split()[0] == 'praestituo' and spell.split()[1] in Wizard.game_spells and spell.split()[1] != 'confervo':
+                        character_party[0].set_element(spell.split()[1])
+                    elif spell.count(' ') >= 1:
                         GL.check_valid_prefix_spell(character_party[0], spell.rpartition(' ')[0], spell.rpartition(' ')[2], enemy_party, target_num)
                     else:
                         GL.check_valid_spell(character_party[0], spell, enemy_party[target_num])
@@ -106,10 +128,6 @@ def run_game():
 
         #if not GL.health_is_gt_0(character_party[0]):   #checks if the main character has health greater than 0, breaks loop if less than 0
          #   break
-
-        if GL.all_enemies_dead(enemy_party):
-            round += 1
-            enemy_party = GL.new_enemies(round, text_box)
 
         print(character_party[0].hp)
         print(target_num)
