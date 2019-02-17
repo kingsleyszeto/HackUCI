@@ -52,7 +52,6 @@ def run_game():
 
 
     while True:
-        #print(pygame.time.get_ticks()) -> use if statements to do constant attacking
         time_counter = pygame.time.get_ticks() - prev_time
 
         if GL.all_enemies_dead(enemy_party):

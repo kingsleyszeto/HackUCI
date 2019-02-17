@@ -16,7 +16,6 @@ class TextBox:
     def input(self, event):
         if event.key != pygame.K_RIGHT and event.key != pygame.K_LEFT:
             if event.key == pygame.K_RETURN:
-                print(self.text)
                 spell = self.text
                 self.text = ''
                 return spell

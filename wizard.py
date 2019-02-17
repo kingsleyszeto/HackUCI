@@ -38,7 +38,7 @@ class Wizard():
             else:
                 heal = 15
             self.hp += heal
-            self.text_box.change_console('Zalvin casts heal! +' + str(heal) + ' HP')
+            self.text_box.change_console('Zalvin casted heal! +' + str(heal) + ' HP')
         else:
             if Wizard.elements[Wizard.game_spells[spell]] == target.element:
                 damage = int(2 * self.damage - self.defense)
@@ -53,7 +53,7 @@ class Wizard():
             elif Wizard.game_spells[spell] == Wizard.elements[self.element]:
                 damage *= 0.5
             target.hp -= damage
-            if self.is_main: self.text_box.change_console('Zalvin casts ' + Wizard.spell_to_text[Wizard.game_spells[spell]] + '!')
+            if self.is_main: self.text_box.change_console('Zalvin casted ' + Wizard.spell_to_text[Wizard.game_spells[spell]] + '!')
 
     def mistake(self):
         self.hp -= 5
