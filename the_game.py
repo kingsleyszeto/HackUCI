@@ -29,7 +29,7 @@ def run_game():
     intro = Intro(screen)
     intro.play_intro()
 
-    round = 1
+    round = 0
 
     character_party = [Wizard(intro.start_element, 5, text_box, 140, True)]            #player's party (index always 0 unless we extend on game)
     #enemy_party = [Wizard('earth', 1, text_box), Wizard('water', 1, text_box), Wizard('fire',1, text_box), Wizard('dark',1, text_box), Wizard('light',1, text_box)]       #Max size for party is 5
@@ -50,6 +50,9 @@ def run_game():
         #print(pygame.time.get_ticks()) -> use if statements to do constant attacking
 
         if GL.all_enemies_dead(enemy_party):
+            if len(enemy_party) is 0:
+                round += 1
+                print("##########################")
             if pygame.time.get_ticks() - prev_char_animation > 300:
                 prev_char_animation = pygame.time.get_ticks()
                 if current_icon == icon:
@@ -90,9 +93,12 @@ def run_game():
                 pygame.display.flip()
 
 
-            round += 1
             if difficulty_scaling < 5:
                 difficulty_scaling = round//5 + 1
+
+            if len(enemy_party) is 0:
+                round += 1
+                print("##########################")
 
 
         screen.fill((0,0,0))
@@ -181,8 +187,8 @@ def run_game():
 
         pygame.display.flip()
 
-        #if not GL.health_is_gt_0(character_party[0]):   #checks if the main character has health greater than 0, breaks loop if less than 0
-        #    game_over(screen, round)
+        if not GL.health_is_gt_0(character_party[0]):   #checks if the main character has health greater than 0, breaks loop if less than 0
+            game_over(screen, round)
 
         print(character_party[0].hp)
         print(target_num)

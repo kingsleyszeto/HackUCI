@@ -80,6 +80,7 @@ class Wizard():
 
     def set_element(self, new_element):
         self.element = Wizard.game_spells[new_element]
+        self.text_box.change_console('Changed attribute to ' + Wizard.game_spells[new_element] + '!')
 
 
 
