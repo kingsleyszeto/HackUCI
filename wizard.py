@@ -30,7 +30,7 @@ class Wizard():
         self.xp_worth = 5 * level
 
     def exec_turn(self, target, spell):
-        if spell == 'kill': ##REMOVE THIS SHIT LATER
+        if spell == 'killlmao': ##REMOVE THIS SHIT LATER
             target.hp -= 100000000
         if spell == 'confervo':
             if self.hp + 10 > self.max_hp:

@@ -4,7 +4,7 @@ class Spellbook:
     def __init__(self, screen):
         self.screen = screen
         self.rect = pygame.Rect(50, 100, 410, 300)
-        self.font = pygame.font.SysFont('Comic Sans MS', 30)
+        self.font = pygame.font.SysFont(None, 30)
         self.fire = self.font.render('Fire: ambustum', False, (0, 0, 0))
         self.water = self.font.render('Water: macerari', False, (0, 0, 0))
         self.earth = self.font.render('Earth: planicia', False, (0, 0, 0))
