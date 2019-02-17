@@ -7,7 +7,7 @@ class TextBox:
         self.console = pygame.Rect(0, 0, 510, 50)
         self.font = pygame.font.SysFont(None, 50)
         self.text = ''
-        self.console_message = 'oh no the magic men are here :('
+        self.console_message = '' #oh no the magic men are here
         self.screen = screen
         self.white = (255, 255, 255)
         self.black = (0, 0, 0)
