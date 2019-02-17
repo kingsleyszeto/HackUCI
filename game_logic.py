@@ -143,3 +143,8 @@ class Game_Logic:
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
                 exec("screen.fill((255,100,100), pygame.Rect(( i * 100 + 30, 200), (({enemy}.hp/{enemy}.max_hp) * 40, 6)))".format(enemy = 'enemy_party[i]'))
+
+    def spawn_enemies(self, screen, enemy_party, current_pics, row):
+        for i in range(len(enemy_party)):
+            exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55), (0,0,100,row*10) )".format(
+                element=enemy_party[i].element))

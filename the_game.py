@@ -3,6 +3,7 @@ from textbox import TextBox
 from wizard import Wizard
 from game_logic import Game_Logic
 from spellbook import Spellbook
+from intro import Intro
 
 def run_game():
     background = pygame.image.load('sprites/bkg.png')
@@ -16,17 +17,20 @@ def run_game():
     spellbook = Spellbook(screen)
     pygame.display.flip()
     pygame.display.set_caption('Wizards')
-    icon = pygame.image.load('sprites/logo1.png')
-    icon2 = pygame.image.load('sprites/logo2.png')
+    icon = pygame.image.load('sprites/logo.png')
+    icon2 = pygame.image.load('sprites/logo1.png')
     pygame.display.set_icon(icon)
     current_icon = icon
     prev_char_animation = pygame.time.get_ticks() #Used for getting time between character animation movements
     prev_time = pygame.time.get_ticks()  #Used for getting time between minion attacks
     text_box = TextBox(screen)
 
+    intro = Intro(screen)
+    intro.play_intro()
+
     round = 1
 
-    character_party = [Wizard('dark', 5, text_box, 140, True)]            #player's party (index always 0 unless we extend on game)
+    character_party = [Wizard(intro.start_element, 5, text_box, 140, True)]            #player's party (index always 0 unless we extend on game)
     #enemy_party = [Wizard('earth', 1, text_box), Wizard('water', 1, text_box), Wizard('fire',1, text_box), Wizard('dark',1, text_box), Wizard('light',1, text_box)]       #Max size for party is 5
     enemy_party = []
     current_pics = [0, 24, 12, 16, 8]                       #for animation purposes
@@ -40,13 +44,11 @@ def run_game():
 
     attacking_ani = [False, 0]                                   #for animation
 
-    flash = [False, 0, False]
 
     while True:
         #print(pygame.time.get_ticks()) -> use if statements to do constant attacking
 
         if GL.all_enemies_dead(enemy_party):
-            flash = [True, pygame.time.get_ticks(), True]
             if pygame.time.get_ticks() - prev_char_animation > 300:
                 prev_char_animation = pygame.time.get_ticks()
                 if current_icon == icon:
@@ -65,7 +67,17 @@ def run_game():
             if shifting:
                 spellbook.open(screen)
             pygame.display.flip()
+
+            this_time = pygame.time.get_ticks()
             enemy_party = GL.new_enemies(round, text_box, difficulty_scaling)
+
+            GL.update_screen(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)
+            pygame.display.flip()
+
+            for i in range(10):
+                GL.spawn_enemies(screen, enemy_party, current_pics, i + 1)
+                pygame.display.flip()
+
             round += 1
             if difficulty_scaling < 5:
                 difficulty_scaling = round//5 + 1
@@ -152,13 +164,6 @@ def run_game():
         if attacking_ani[0] and pygame.time.get_ticks() - attacking_ani[1] < 750:
             GL.update_screen_attacking(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)
 
-        if flash[0]:
-            if flash[2]:
-                screen.fill((0, 0, 0))
-                screen.blit(background_light,(0,0))
-            flash[2] = not flash[2]
-            if pygame.time.get_ticks() - flash[0] > 2500:
-                flash[0] = False
 
 
 

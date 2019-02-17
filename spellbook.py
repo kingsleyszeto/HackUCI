@@ -12,21 +12,20 @@ class Spellbook:
         self.light = self.font.render('Light: illustris', False, (0, 0, 0))
         self.heal = self.font.render('Heal: confervo', False, (0, 0, 0))
         self.multi = self.font.render('Multi: ledo magis hosti', False, (0,0,0))
-        self.change = self.font.render('Change: praestituo', False, (0,0,0))
         self.spellbook = [self.fire, self.water, self.earth, self.dark, self.light, self.heal]
-        self.prefixes = [self.multi, self.change]
+        self.prefixes = [self.multi]
 
     def open(self, screen):
-        pygame.draw.rect(screen, (245, 222, 179), self.rect)
-        height = 100
-        screen.blit(self.font.render('Spells', False, (0, 0, 0)), (50, height))
+        screen.blit(pygame.image.load('sprites/scroll.png'), (50, 45))
+        height = 120
+        screen.blit(self.font.render('Spells', False, (0, 0, 0)), (150, height))
         height += 25
         for text in self.spellbook:
-            screen.blit(text, (50, height))
+            screen.blit(text, (150, height))
             height += 25
         height += 25
-        screen.blit(self.font.render('Prefixes', False, (0, 0, 0)), (50, height))
+        screen.blit(self.font.render('Prefixes', False, (0, 0, 0)), (150, height))
         height += 25
         for text in self.prefixes:
-            screen.blit(text, (50, height))
+            screen.blit(text, (150, height))
             height += 25
