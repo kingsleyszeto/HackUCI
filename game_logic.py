@@ -93,6 +93,8 @@ class Game_Logic:
 
         self.boxes = [pygame.image.load('sprites/RedBox1.png'), pygame.image.load('sprites/RedBox2.png')]
 
+        self.spawn_locations = [(205, 160), (110, 260), (310, 260)]
+
     def check_valid_spell(self, m_c, spell, target):
         if spell in m_c.game_spells:
             m_c.exec_turn(target, spell)
@@ -137,31 +139,33 @@ class Game_Logic:
         return all([(not self.health_is_gt_0(enemy)) for enemy in enemy_party])
 
     def new_enemies(self, level, text_box, difficulty_scaling):
-            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2,text_box) for i in range(randint(1, difficulty_scaling))]
+            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2,text_box) for i in range(randint(1, difficulty_scaling))] #
 
 
 
     def update_screen(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic): #animation
           #may move into settings
-        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
+        #exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 135, 55))".format(element=enemy_party[i].element))
-                exec("screen.blit(self.{element}_en[{monster_type}][current_pics[i]//15], (i*100 + 110, 95))".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type))
-                exec("screen.blit(self.{element}_en[enemy_party[i].monster_type][current_pics[i]//15], (i*100 + 110, 95))".format(element = enemy_party[i].element))
+                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], {spawn})".format(element=enemy_party[i].element, spawn=(self.spawn_locations[i][0] + 25, self.spawn_locations[i][1] - 50)))
+                exec("screen.blit(self.{element}_en[{monster_type}][current_pics[i]//15], {spawn})".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type, spawn=self.spawn_locations[i]))
+                exec("screen.blit(self.{element}_en[enemy_party[i].monster_type][current_pics[i]//15], {spawn})".format(element = enemy_party[i].element, spawn=self.spawn_locations[i]))
             else:
-                exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], (i*100 + 110, 95))".format(element=enemy_party[i].element))
-        screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100 + 100,55))
+                exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], {spawn})".format(element=enemy_party[i].element, spawn=self.spawn_locations[i]))
+        screen.blit(self.boxes[current_pics[1] // 15], (self.spawn_locations[target_num][0] - 10, self.spawn_locations[target_num][1] - 50))
+        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
 
     def update_screen_attacking(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic, spellbook, shifting): #animation
           #may move into settings
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 135, 55))".format(element = enemy_party[i].element))
-                exec("screen.blit(self.{element}_en_atk[{monster_type}], (i*100 + 110, 95))".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type))
+                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], {spawn})".format(element = enemy_party[i].element, spawn=(self.spawn_locations[i][0] + 25, self.spawn_locations[i][1] - 50)))
+                exec("screen.blit(self.{element}_en_atk[{monster_type}], {spawn})".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type, spawn=self.spawn_locations[i]))
             else:
-                exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], (i*100 + 110, 95))".format(element=enemy_party[i].element))
-        screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100 + 100,55))
+                exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], {spawn})".format(element=enemy_party[i].element, spawn=self.spawn_locations[i]))
+        screen.blit(self.boxes[current_pics[1] // 15], (self.spawn_locations[target_num][0] - 10, self.spawn_locations[target_num][1] - 50))
+        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
         if shifting:
             spellbook.open(screen)
 
@@ -208,14 +212,14 @@ class Game_Logic:
     def update_enemy_HP_bar(self, screen, enemy_party):
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.fill((255,100,100), pygame.Rect(( i * 105 + 135, 198), (({enemy}.hp/{enemy}.max_hp) * 40, 6)))".format(
-                        enemy='enemy_party[i]'))
+                exec("screen.fill((255,100,100), pygame.Rect({spawn}, (({enemy}.hp/{enemy}.max_hp) * 40, 6)))".format(
+                        enemy='enemy_party[i]', spawn=(self.spawn_locations[i][0] + 30, self.spawn_locations[i][1] + 100)))
 
     def update_enemy_atk_bar(self, screen, enemy_party, time_counter):
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.fill((255,255,0), pygame.Rect(( i * 105 + 135, 204), ({time_counter} * 5, 2)))".format(time_counter=str(time_counter // 1000)))
+                exec("screen.fill((255,255,0), pygame.Rect({spawn}, ({time_counter} * 5, 2)))".format(time_counter=str(time_counter // 1000), spawn=(self.spawn_locations[i][0] + 30, self.spawn_locations[i][1] + 98)))
 
     def spawn_enemies(self, screen, enemy_party, current_pics, row): #HERE
         for i in range(len(enemy_party)):
-            exec("screen.blit(self.{element}_split[enemy_party[i].monster_type][current_pics[i] // 15][row], (i*100 + 110, 95))".format(element=enemy_party[i].element))
+            exec("screen.blit(self.{element}_split[enemy_party[i].monster_type][current_pics[i] // 15][row], {spawn})".format(element=enemy_party[i].element, spawn=self.spawn_locations[i]))
