@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3113a77-3130-4eaf-b6d0-df11005a7de3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/intro.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gameover.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_logic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/intro.py" beforeDir="false" afterPath="$PROJECT_DIR$/intro.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spellbook.py" beforeDir="false" afterPath="$PROJECT_DIR$/spellbook.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/RedBox1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/RedBox1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/RedBox2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/RedBox2.png" afterDir="false" />
@@ -28,8 +29,9 @@
       <change beforePath="$PROJECT_DIR$/sprites/lighten2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/lighten2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/lightenatk.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/lightenatk.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/lightendead.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/lightendead.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/logo1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/logo1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sprites/logo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/scroll.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/smallDummy1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/smallDummy1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/smallDummy2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/smallDummy2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/smalldark1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/smalldark1.png" afterDir="false" />
@@ -42,17 +44,42 @@
       <change beforePath="$PROJECT_DIR$/sprites/smalllight2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/smalllight2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/smallwater1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/smallwater1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/smallwater2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/smallwater2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/start1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/start1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/start2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/start2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/startelement1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/startelement1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/startelement2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/startelement2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/stick.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/stick.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/wateren1.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wateren1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/wateren2.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wateren2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/waterenatk.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/waterenatk.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sprites/waterendead.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/waterendead.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/the_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/the_game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wizard.py" beforeDir="false" afterPath="$PROJECT_DIR$/wizard.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/list pics.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="30">
+                    <caret line="2" column="11" lean-forward="true" selection-start-line="2" selection-start-column="11" selection-end-line="4" selection-end-column="125" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-434569590">
@@ -66,26 +93,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="11" />
+          <entry key="py" value="16" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="11" />
+          <entry key="Python" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
-          <entry key="py" value="19397" />
+          <entry key="py" value="21201" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="7" />
-          <entry key="Python" value="19397" />
+          <entry key="Python" value="21201" />
         </counts>
       </usages-collector>
     </session>
@@ -95,8 +122,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/the_game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+            <state relative-caret-position="-403">
+              <caret line="17" column="33" lean-forward="true" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -105,26 +132,35 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/intro.py">
+        <entry file="file://$PROJECT_DIR$/game_logic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+            <state relative-caret-position="-1605">
+              <caret line="25" column="131" selection-start-line="25" selection-start-column="131" selection-end-line="25" selection-end-column="131" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+                <marker date="1550381586483" expanded="true" signature="488:7378" ph="..." />
+                <marker date="1550381586483" expanded="true" signature="7373:7374" ph="..." />
+                <marker date="1550381586483" expanded="true" signature="8033:8137" ph="..." />
+                <marker date="1550381586483" expanded="true" signature="8896:9060" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game_logic.py">
+        <entry file="file://$PROJECT_DIR$/gameover.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="148" column="110" selection-start-line="148" selection-start-column="110" selection-end-line="148" selection-end-column="110" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <marker date="1550367912407" expanded="true" signature="404:2374" ph="..." />
-                <marker date="1550367912407" expanded="true" signature="2369:2370" ph="..." />
-                <marker date="1550367912407" expanded="true" signature="3029:3133" ph="..." />
-                <marker date="1550367912407" expanded="true" signature="3892:4056" ph="..." />
-              </folding>
+            <state>
+              <caret column="13" lean-forward="true" selection-start-column="13" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/intro.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="665">
+              <caret line="51" column="58" lean-forward="true" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -132,7 +168,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/textbox.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-150">
+            <state relative-caret-position="-30">
               <caret column="13" selection-start-column="13" selection-end-column="13" />
             </state>
           </provider>
@@ -141,8 +177,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spellbook.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+            <state relative-caret-position="195">
+              <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -150,8 +186,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wizard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="74" selection-start-line="3" selection-start-column="74" selection-end-line="3" selection-end-column="74" />
+            <state relative-caret-position="195">
+              <caret line="13" column="30" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -202,6 +238,12 @@
       <find>update_screen</find>
       <find>flash</find>
       <find>for</find>
+      <find>ICON</find>
+      <find>_en</find>
+      <find>type</find>
+      <find>exec</find>
+      <find>wait</find>
+      <find>dea</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -215,16 +257,18 @@
         <option value="$PROJECT_DIR$/console_test.py" />
         <option value="$PROJECT_DIR$/textbox.py" />
         <option value="$PROJECT_DIR$/wizard.py" />
+        <option value="$PROJECT_DIR$/list pics.py" />
+        <option value="$PROJECT_DIR$/intro.py" />
+        <option value="$PROJECT_DIR$/gameover.py" />
+        <option value="$PROJECT_DIR$/the_game.py" />
         <option value="$PROJECT_DIR$/game_logic.py" />
         <option value="$PROJECT_DIR$/spellbook.py" />
-        <option value="$PROJECT_DIR$/the_game.py" />
-        <option value="$PROJECT_DIR$/intro.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
-    <option name="width" value="933" />
+    <option name="width" value="720" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -239,11 +283,6 @@
             <path>
               <item name="HackUCI" type="b2602c69:ProjectViewProjectNode" />
               <item name="HackUCI" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HackUCI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HackUCI" type="462c0819:PsiDirectoryNode" />
-              <item name="sprites" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -289,6 +328,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="list pics" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="HackUCI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/list pics.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="the_game" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="HackUCI" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -313,10 +373,12 @@
     <list>
       <item itemvalue="Python.the_game" />
       <item itemvalue="Python.console_test" />
+      <item itemvalue="Python.list pics" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.the_game" />
+        <item itemvalue="Python.list pics" />
         <item itemvalue="Python.console_test" />
       </list>
     </recent_temporary>
@@ -335,10 +397,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1441" height="877" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16478874" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.058491897" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -379,6 +441,17 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/intro.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/spell_checker.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -387,6 +460,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/spells.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/console_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -394,48 +470,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spells.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/wizard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="74" selection-start-line="3" selection-start-column="74" selection-end-line="3" selection-end-column="74" />
+        <state relative-caret-position="195">
+          <caret line="13" column="30" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/textbox.py">
+    <entry file="file://$PROJECT_DIR$/list pics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-150">
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game_logic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="148" column="110" selection-start-line="148" selection-start-column="110" selection-end-line="148" selection-end-column="110" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <marker date="1550367912407" expanded="true" signature="404:2374" ph="..." />
-            <marker date="1550367912407" expanded="true" signature="2369:2370" ph="..." />
-            <marker date="1550367912407" expanded="true" signature="3029:3133" ph="..." />
-            <marker date="1550367912407" expanded="true" signature="3892:4056" ph="..." />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" column="11" lean-forward="true" selection-start-line="2" selection-start-column="11" selection-end-line="4" selection-end-column="125" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spellbook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+        <state relative-caret-position="195">
+          <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/the_game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+        <state relative-caret-position="-403">
+          <caret line="17" column="33" lean-forward="true" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -444,8 +503,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/intro.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+        <state relative-caret-position="665">
+          <caret line="51" column="58" lean-forward="true" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/textbox.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-30">
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gameover.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" lean-forward="true" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1605">
+          <caret line="25" column="131" selection-start-line="25" selection-start-column="131" selection-end-line="25" selection-end-column="131" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <marker date="1550381586483" expanded="true" signature="488:7378" ph="..." />
+            <marker date="1550381586483" expanded="true" signature="7373:7374" ph="..." />
+            <marker date="1550381586483" expanded="true" signature="8033:8137" ph="..." />
+            <marker date="1550381586483" expanded="true" signature="8896:9060" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

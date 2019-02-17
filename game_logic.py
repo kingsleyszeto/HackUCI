@@ -11,6 +11,7 @@ class Game_Logic:
                    'heal': 'heal'}
     prefix = {'explosive': 'aoe'}
     elements = {'water': 'fire', 'fire': 'earth', 'earth': 'water', 'light': 'dark', 'dark': 'light'}
+    ele_list = {'dark': 'P', 'earth': 'G', 'water': 'B', 'fire': 'R', 'light': 'Y'}
 
 
     def __init__(self):
@@ -19,21 +20,57 @@ class Game_Logic:
         self.earth_pics = [pygame.image.load('sprites/smallleaf1.png'), pygame.image.load('sprites/smallleaf2.png')]
         self.light_pics = [pygame.image.load('sprites/smalllight1.png'), pygame.image.load('sprites/smalllight2.png')]
         self.dark_pics = [pygame.image.load('sprites/smalldark1.png'), pygame.image.load('sprites/smalldark2.png')]
-        self.fire_en = [pygame.image.load('sprites/fireen1.png'), pygame.image.load('sprites/fireen2.png')]
-        self.fire_en_atk = pygame.image.load('sprites/fireenatk.png')
-        self.fire_en_dead = pygame.image.load('sprites/fireendead.png')
-        self.water_en = [pygame.image.load('sprites/wateren1.png'), pygame.image.load('sprites/wateren2.png')]
-        self.water_en_atk = pygame.image.load('sprites/waterenatk.png')
-        self.water_en_dead = pygame.image.load('sprites/waterendead.png')
-        self.earth_en = [pygame.image.load('sprites/earthen1.png'), pygame.image.load('sprites/earthen2.png')]
-        self.earth_en_atk = pygame.image.load('sprites/earthenatk.png')
-        self.earth_en_dead = pygame.image.load('sprites/earthendead.png')
-        self.light_en = [pygame.image.load('sprites/lighten1.png'), pygame.image.load('sprites/lighten2.png')]
-        self.light_en_atk = pygame.image.load('sprites/lightenatk.png')
-        self.light_en_dead = pygame.image.load('sprites/lightendead.png')
-        self.dark_en = [pygame.image.load('sprites/darken1.png'), pygame.image.load('sprites/darken2.png')]
-        self.dark_en_atk = pygame.image.load('sprites/darkenatk.png')
-        self.dark_en_dead = pygame.image.load('sprites/darkendead.png')
+
+        self.fire_en = [[eval('pygame.image.load("sprites/{element}en{number}.png")'.format(element = 'fire', number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}ombie{number}.png")'.format(color_letter = Game_Logic.ele_list['fire'], number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}Blob{number}.png")'.format(color_letter = Game_Logic.ele_list['fire'], number = num + 1)) for num in range(2)]]
+        self.fire_en_atk = [eval('pygame.image.load("sprites/{element}enatk.png")'.format(element = 'fire')),
+            eval('pygame.image.load("sprites/{color_letter}omAttack.png")'.format(color_letter = Game_Logic.ele_list['fire'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobAttack.png")'.format(color_letter = Game_Logic.ele_list['fire']))]
+        self.fire_en_dead = [eval('pygame.image.load("sprites/{element}endead.png")'.format(element = 'fire')),
+            eval('pygame.image.load("sprites/{color_letter}omDead.png")'.format(color_letter = Game_Logic.ele_list['fire'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobDead.png")'.format(color_letter = Game_Logic.ele_list['fire']))]
+
+        self.water_en = [[eval('pygame.image.load("sprites/{element}en{number}.png")'.format(element = 'water', number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}ombie{number}.png")'.format(color_letter = Game_Logic.ele_list['water'], number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}Blob{number}.png")'.format(color_letter = Game_Logic.ele_list['water'], number = num + 1)) for num in range(2)]]
+        self.water_en_atk = [eval('pygame.image.load("sprites/{element}enatk.png")'.format(element = 'water')),
+            eval('pygame.image.load("sprites/{color_letter}omAttack.png")'.format(color_letter = Game_Logic.ele_list['water'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobAttack.png")'.format(color_letter = Game_Logic.ele_list['water']))]
+        self.water_en_dead = [eval('pygame.image.load("sprites/{element}endead.png")'.format(element = 'water')),
+            eval('pygame.image.load("sprites/{color_letter}omDead.png")'.format(color_letter = Game_Logic.ele_list['water'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobDead.png")'.format(color_letter = Game_Logic.ele_list['water']))]
+
+        self.earth_en = [[eval('pygame.image.load("sprites/{element}en{number}.png")'.format(element = 'earth', number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}ombie{number}.png")'.format(color_letter = Game_Logic.ele_list['earth'], number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}Blob{number}.png")'.format(color_letter = Game_Logic.ele_list['earth'], number = num + 1)) for num in range(2)]]
+        self.earth_en_atk =[eval('pygame.image.load("sprites/{element}enatk.png")'.format(element = 'earth')),
+            eval('pygame.image.load("sprites/{color_letter}omAttack.png")'.format(color_letter = Game_Logic.ele_list['earth'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobAttack.png")'.format(color_letter = Game_Logic.ele_list['earth']))]
+        self.earth_en_dead = [eval('pygame.image.load("sprites/{element}endead.png")'.format(element = 'earth')),
+            eval('pygame.image.load("sprites/{color_letter}omDead.png")'.format(color_letter = Game_Logic.ele_list['earth'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobDead.png")'.format(color_letter = Game_Logic.ele_list['earth']))]
+
+        self.light_en = [[eval('pygame.image.load("sprites/{element}en{number}.png")'.format(element = 'light', number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}ombie{number}.png")'.format(color_letter = Game_Logic.ele_list['light'], number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}Blob{number}.png")'.format(color_letter = Game_Logic.ele_list['light'], number = num + 1)) for num in range(2)]]
+        self.light_en_atk = [eval('pygame.image.load("sprites/{element}enatk.png")'.format(element = 'light')),
+            eval('pygame.image.load("sprites/{color_letter}omAttack.png")'.format(color_letter = Game_Logic.ele_list['light'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobAttack.png")'.format(color_letter = Game_Logic.ele_list['light']))]
+        self.light_en_dead = [eval('pygame.image.load("sprites/{element}endead.png")'.format(element = 'light')),
+            eval('pygame.image.load("sprites/{color_letter}omDead.png")'.format(color_letter = Game_Logic.ele_list['light'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobDead.png")'.format(color_letter = Game_Logic.ele_list['light']))]
+
+        self.dark_en = [[eval('pygame.image.load("sprites/{element}en{number}.png")'.format(element = 'dark', number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}ombie{number}.png")'.format(color_letter = Game_Logic.ele_list['dark'], number = num + 1)) for num in range(2)],
+            [eval('pygame.image.load("sprites/{color_letter}Blob{number}.png")'.format(color_letter = Game_Logic.ele_list['dark'], number = num + 1)) for num in range(2)]]
+        self.dark_en_atk = [eval('pygame.image.load("sprites/{element}enatk.png")'.format(element = 'dark')),
+            eval('pygame.image.load("sprites/{color_letter}omAttack.png")'.format(color_letter = Game_Logic.ele_list['dark'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobAttack.png")'.format(color_letter = Game_Logic.ele_list['dark']))]
+        self.dark_en_dead = [eval('pygame.image.load("sprites/{element}endead.png")'.format(element = 'dark')),
+            eval('pygame.image.load("sprites/{color_letter}omDead.png")'.format(color_letter = Game_Logic.ele_list['dark'])),
+            eval('pygame.image.load("sprites/{color_letter}BlobDead.png")'.format(color_letter = Game_Logic.ele_list['dark']))]
+
         self.boxes = [pygame.image.load('sprites/RedBox1.png'), pygame.image.load('sprites/RedBox2.png')]
 
     def check_valid_spell(self, m_c, spell, target):
@@ -89,23 +126,22 @@ class Game_Logic:
         exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element = enemy_party[i].element))
-                exec("screen.blit(self.{element}_en[current_pics[i]//15], (i*100 + 10, 95))".format(element = enemy_party[i].element))
+                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element=enemy_party[i].element))
+                exec("screen.blit(self.{element}_en[{monster_type}][current_pics[i]//15], (i*100 + 10, 95))".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type))
+                exec("screen.blit(self.{element}_en[enemy_party[i].monster_type][current_pics[i]//15], (i*100 + 10, 95))".format(element = enemy_party[i].element))
             else:
-                exec("screen.blit(self.{element}_en_dead, (i*100 + 10, 95))".format(element=enemy_party[i].element))
+                exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], (i*100 + 10, 95))".format(element=enemy_party[i].element))
         screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100,55))
 
     def update_screen_attacking(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic): #animation
           #may move into settings
-        exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
                 exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element = enemy_party[i].element))
-                exec("screen.blit(self.{element}_en_atk, (i*100 + 10, 95))".format(element = enemy_party[i].element))
+                exec("screen.blit(self.{element}_en_atk[{monster_type}], (i*100 + 10, 95))".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type))
             else:
-                exec("screen.blit(self.{element}_en_dead, (i*100 + 10, 95))".format(element=enemy_party[i].element))
+                exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], (i*100 + 10, 95))".format(element=enemy_party[i].element))
         pygame.display.update()
-
         screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100,55))
 
     def key_LR(self, event, target_num, enemy_party):    #moves the target and red box
@@ -146,5 +182,5 @@ class Game_Logic:
 
     def spawn_enemies(self, screen, enemy_party, current_pics, row):
         for i in range(len(enemy_party)):
-            exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55), (0,0,100,row*10) )".format(
+            exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55), (0,0,50,50) )".format(
                 element=enemy_party[i].element))

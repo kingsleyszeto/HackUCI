@@ -16,7 +16,7 @@ class Spellbook:
         self.prefixes = [self.multi]
 
     def open(self, screen):
-        screen.blit(pygame.image.load('sprites/scroll.png'), (50, 45))
+        screen.blit(pygame.image.load('sprites/bigScroll.png'), (50, 45))
         height = 120
         screen.blit(self.font.render('Spells', False, (0, 0, 0)), (150, height))
         height += 25

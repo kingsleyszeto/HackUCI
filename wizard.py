@@ -1,3 +1,5 @@
+from random import randint
+
 class Wizard():
     elements = {'water': 'fire', 'fire': 'earth', 'earth': 'water', 'light': 'dark', 'dark': 'light'}
     game_spells = {'ambustum': 'fire', 'macerari': 'water', 'planicia': 'earth', 'opscurum': 'dark',
@@ -12,6 +14,7 @@ class Wizard():
         self.element = element
         self.level = level
         self.is_main = is_main
+        self.monster_type = randint(0,2)
 
         self.max_hp = max_hp + level*4        #subject to change
         self.hp = self.max_hp

@@ -46,7 +46,7 @@ class Intro:
                         self.select_element()
                         loop = False
                 pygame.display.flip()
-            self.select_element()
+
     def select_element(self):
             elements = [pygame.image.load('sprites/startelement1.png'), pygame.image.load('sprites/startelement2.png')]
             stick = pygame.image.load('sprites/stick.png')

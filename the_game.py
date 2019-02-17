@@ -4,12 +4,13 @@ from wizard import Wizard
 from game_logic import Game_Logic
 from spellbook import Spellbook
 from intro import Intro
+from gameover import game_over
 
 def run_game():
     background = pygame.image.load('sprites/bkg.png')
     background_red = pygame.image.load('sprites/bkgred.png')
     background_dark_red = pygame.image.load('sprites/bkgdarkred.png')
-    background_light = pygame.image.load('sprites/bkglight.png')
+
     pygame.init()
     GL = Game_Logic()
     screen = pygame.display.set_mode((510,500))
@@ -69,14 +70,25 @@ def run_game():
             pygame.display.flip()
 
             this_time = pygame.time.get_ticks()
+
             enemy_party = GL.new_enemies(round, text_box, difficulty_scaling)
 
             GL.update_screen(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)
             pygame.display.flip()
 
+            pygame.time.wait(100)
+            screen.blit(background, (0,0))
+            if current_icon == icon:
+                screen.blit(current_icon, (150, 250))
+            if current_icon == icon2:
+                screen.blit(current_icon, (154, 250))
+            pygame.display.flip()
+
+            ####ASDFASDFASDF
             for i in range(10):
                 GL.spawn_enemies(screen, enemy_party, current_pics, i + 1)
                 pygame.display.flip()
+
 
             round += 1
             if difficulty_scaling < 5:
@@ -170,7 +182,7 @@ def run_game():
         pygame.display.flip()
 
         #if not GL.health_is_gt_0(character_party[0]):   #checks if the main character has health greater than 0, breaks loop if less than 0
-         #   break
+        #    game_over(screen, round)
 
         print(character_party[0].hp)
         print(target_num)
