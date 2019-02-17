@@ -15,6 +15,7 @@ class Game_Logic:
 
 
     def __init__(self):
+        #Entering massive spaghetti zone
         self.fire_pics = [pygame.image.load('sprites/smallfire1.png'), pygame.image.load('sprites/smallfire2.png')]
         self.water_pics = [pygame.image.load('sprites/smallwater1.png'), pygame.image.load('sprites/smallwater2.png')]
         self.earth_pics = [pygame.image.load('sprites/smallleaf1.png'), pygame.image.load('sprites/smallleaf2.png')]
@@ -94,6 +95,7 @@ class Game_Logic:
         self.boxes = [pygame.image.load('sprites/RedBox1.png'), pygame.image.load('sprites/RedBox2.png')]
 
         self.spawn_locations = [(205, 160), (110, 260), (310, 260)]
+        #Did you enjoy your fine Italian dinner?
 
     def check_valid_spell(self, m_c, spell, target):
         if spell in m_c.game_spells:
