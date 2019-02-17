@@ -8,6 +8,7 @@ def run_game():
     background = pygame.image.load('sprites/bkg.png')
     background_red = pygame.image.load('sprites/bkgred.png')
     background_dark_red = pygame.image.load('sprites/bkgdarkred.png')
+    background_light = pygame.image.load('sprites/bkglight.png')
     pygame.init()
     GL = Game_Logic()
     screen = pygame.display.set_mode((510,500))
@@ -37,14 +38,38 @@ def run_game():
 
     difficulty_scaling = 1                                  #current loop, used for difficulty scaling
 
+    attacking_ani = [False, 0]                                   #for animation
+
+    flash = [False, 0, False]
+
     while True:
         #print(pygame.time.get_ticks()) -> use if statements to do constant attacking
 
         if GL.all_enemies_dead(enemy_party):
+            flash = [True, pygame.time.get_ticks(), True]
+            if pygame.time.get_ticks() - prev_char_animation > 300:
+                prev_char_animation = pygame.time.get_ticks()
+                if current_icon == icon:
+                    screen.blit(icon2, (154, 250))  # player character
+                    current_icon = icon2
+                else:
+                    screen.blit(icon, (150, 250))
+                    current_icon = icon
+            else:
+                if current_icon == icon:
+                    screen.blit(current_icon, (150, 250))
+                if current_icon == icon2:
+                    screen.blit(current_icon, (154, 250))
+            text_box.update(screen)
+
+            if shifting:
+                spellbook.open(screen)
+            pygame.display.flip()
             enemy_party = GL.new_enemies(round, text_box, difficulty_scaling)
             round += 1
             if difficulty_scaling < 5:
-                difficulty_scaling = round//10 + 1
+                difficulty_scaling = round//5 + 1
+
 
         screen.fill((0,0,0))
         if character_party[0].hp > character_party[0].max_hp*0.4:
@@ -116,15 +141,28 @@ def run_game():
             screen.blit(background_red, (0, 0))
             GL.update_HP_bar(screen, character_party[0])
             GL.update_enemy_HP_bar(screen, enemy_party)
-            GL.update_screen_attacking(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)
-            text_box.update(screen)
+            attacking_ani = [True, pygame.time.get_ticks()]
             screen.blit(icon, (150, 250))
             if shifting:
                 spellbook.open(screen)
+            text_box.update(screen)
             print(character_party[0].hp)
-        pygame.display.flip()
-        pygame.time.wait(40)
 
+
+        if attacking_ani[0] and pygame.time.get_ticks() - attacking_ani[1] < 750:
+            GL.update_screen_attacking(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)
+
+        if flash[0]:
+            if flash[2]:
+                screen.fill((0, 0, 0))
+                screen.blit(background_light,(0,0))
+            flash[2] = not flash[2]
+            if pygame.time.get_ticks() - flash[0] > 2500:
+                flash[0] = False
+
+
+
+        pygame.display.flip()
 
         #if not GL.health_is_gt_0(character_party[0]):   #checks if the main character has health greater than 0, breaks loop if less than 0
          #   break

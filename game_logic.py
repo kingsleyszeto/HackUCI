@@ -43,8 +43,9 @@ class Game_Logic:
         else:
             m_c.mistake()
 
-    def check_valid_prefix_spell(self, m_c, prefix, spell, targets, target):
+    def check_valid_prefix_spell(self, m_c, prefix, spell, targets, target_num):
         if spell in m_c.game_spells and prefix in Wizard.game_prefixes:
+            m_c.exec_turn(targets[target_num], spell)
             if prefix == 'ledo magis hosti':
                 for target in targets:
                     m_c.exec_aoe(target, spell)
@@ -103,6 +104,7 @@ class Game_Logic:
                 exec("screen.blit(self.{element}_en_atk, (i*100 + 10, 95))".format(element = enemy_party[i].element))
             else:
                 exec("screen.blit(self.{element}_en_dead, (i*100 + 10, 95))".format(element=enemy_party[i].element))
+        pygame.display.update()
 
         screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100,55))
 
