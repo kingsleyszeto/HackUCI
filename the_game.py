@@ -29,6 +29,10 @@ def run_game():
     intro = Intro(screen)
     intro.play_intro()
 
+    pygame.mixer.init()
+    dungeon_music = pygame.mixer.Sound('audio/dungeon.wav')
+    dungeon_music.play()
+
     round = 1
 
     character_party = [Wizard(intro.start_element, 5, text_box, 140, True)]            #player's party (index always 0 unless we extend on game)
@@ -50,7 +54,14 @@ def run_game():
     while True:
         #print(pygame.time.get_ticks()) -> use if statements to do constant attacking
         time_counter = pygame.time.get_ticks() - prev_time
+
         if GL.all_enemies_dead(enemy_party):
+            screen.blit(background, (0, 0))
+            if current_icon == icon:
+                screen.blit(current_icon, (155, 255))
+            if current_icon == icon2:
+                screen.blit(current_icon, (155, 255))
+            pygame.display.flip()
             time_counter = pygame.time.get_ticks()
             GL.update_screen(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)
             if len(enemy_party) > 0:
@@ -58,45 +69,39 @@ def run_game():
             if pygame.time.get_ticks() - prev_char_animation > 300:
                 prev_char_animation = pygame.time.get_ticks()
                 if current_icon == icon:
-                    screen.blit(icon2, (154, 250))  # player character
+                    screen.blit(icon2, (155, 255))  # player character
                     current_icon = icon2
                 else:
-                    screen.blit(icon, (150, 250))
+                    screen.blit(icon, (155, 255))
                     current_icon = icon
             else:
                 if current_icon == icon:
-                    screen.blit(current_icon, (150, 250))
+                    screen.blit(current_icon, (155, 255))
                 if current_icon == icon2:
-                    screen.blit(current_icon, (154, 250))
+                    screen.blit(current_icon, (155, 255))
             text_box.update(screen)
 
             if shifting:
                 spellbook.open(screen)
 
             enemy_party = GL.new_enemies(round, text_box, difficulty_scaling)
+            screen.blit(background, (0, 0))
+            if current_icon == icon:
+                screen.blit(current_icon, (155, 255))
+            if current_icon == icon2:
+                screen.blit(current_icon, (155, 255))
+            pygame.display.flip()
 
-            for i in range(50):
-                if character_party[0].hp > character_party[0].max_hp * 0.4:
-                    screen.blit(background, (0, 0))
-                elif character_party[0].hp > character_party[0].max_hp * 0.2:
-                    screen.blit(background_red, (0, 0))
-                else:
-                    screen.blit(background_dark_red, (0, 0))
-
+            for i in range(30):
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        quit()
                 pygame.display.flip()
-                GL.spawn_enemies(screen, enemy_party, current_pics, i//10)
-
+                GL.spawn_enemies(screen, enemy_party, current_pics, i//6)
 
             target_num = 0 if len(enemy_party) == 1 else target_num if target_num < len(enemy_party) else GL.LR_change(target_num, enemy_party)
             screen.blit(GL.boxes[current_pics[1] // 15], (target_num * 100, 55))
             GL.update_screen(screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic)
-
-            screen.blit(background, (0,0))
-            if current_icon == icon:
-                screen.blit(current_icon, (150, 250))
-            if current_icon == icon2:
-                screen.blit(current_icon, (154, 250))
-            pygame.display.flip()
 
             if difficulty_scaling < 3:
                 difficulty_scaling = round//5 + 1
@@ -117,16 +122,16 @@ def run_game():
         if pygame.time.get_ticks() - prev_char_animation > 300:
             prev_char_animation = pygame.time.get_ticks()
             if current_icon == icon:
-                screen.blit(icon2, (154, 250))  #player character
+                screen.blit(icon2, (155, 255))  #player character
                 current_icon = icon2
             else:
-                screen.blit(icon, (150, 250) )
+                screen.blit(icon, (155, 255) )
                 current_icon = icon
         else:
             if current_icon == icon:
-                screen.blit(current_icon, (150, 250))
+                screen.blit(current_icon, (155, 255))
             if current_icon == icon2:
-                screen.blit(current_icon, (154, 250))
+                screen.blit(current_icon, (155, 255))
 
 
         for i in range(len(current_pics)):
@@ -176,7 +181,7 @@ def run_game():
             GL.update_HP_bar(screen, character_party[0])
             GL.update_enemy_HP_bar(screen, enemy_party)
             attacking_ani = [True, pygame.time.get_ticks()]
-            screen.blit(icon, (150, 250))
+            screen.blit(icon, (155, 255))
             if shifting:
                 spellbook.open(screen)
             text_box.update(screen)
@@ -192,7 +197,18 @@ def run_game():
 
         pygame.display.flip()
 
+        if GL.all_enemies_dead(enemy_party):
+            screen.blit(background, (0, 0))
+            if current_icon == icon:
+                screen.blit(current_icon, (155, 255))
+            if current_icon == icon2:
+                screen.blit(current_icon, (155, 255))
+            pygame.display.flip()
+
         if not GL.health_is_gt_0(character_party[0]):   #checks if the main character has health greater than 0, breaks loop if less than 0
+            dungeon_music.stop()
+            violins = pygame.mixer.Sound('audio/sad_violin.wav')
+            violins.play()
             game_over(screen, round)
 
 run_game()

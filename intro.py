@@ -57,12 +57,12 @@ class Intro:
                 pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 510, 500))
                 if current_image == 0:
                     self.screen.blit(elements[1], (0, 0))
-                    self.screen.blit(stick, (-65 + 95*self.index, 240))
+                    self.screen.blit(stick, (-45 + 95*self.index, 270))
                     current_image = 1
                     pygame.time.wait(100)
                 elif current_image == 1:
                     self.screen.blit(elements[0], (0, 0))
-                    self.screen.blit(stick, (-65 + 95*self.index, 240))
+                    self.screen.blit(stick, (-45 + 95*self.index, 270))
                     current_image = 0
                     pygame.time.wait(100)
                 for event in pygame.event.get():

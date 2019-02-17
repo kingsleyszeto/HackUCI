@@ -9,7 +9,7 @@ def game_over(screen, round, score=0):
         text2 = font.render('Score: ' + str(score), False, (255, 255, 255))
         screen.blit(pygame.image.load('sprites/deadscreen.png'), (0, 0))
         screen.blit(text1, (150, 200))
-        screen.blit(text2, (200, 230))
+        #screen.blit(text2, (200, 230))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
