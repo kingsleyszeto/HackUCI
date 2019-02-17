@@ -71,12 +71,31 @@ class Game_Logic:
             eval('pygame.image.load("sprites/{color_letter}omDead.png")'.format(color_letter = Game_Logic.ele_list['dark'])),
             eval('pygame.image.load("sprites/{color_letter}BlobDead.png")'.format(color_letter = Game_Logic.ele_list['dark']))]
 
+        self.fire_split = [[[eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadMage{number}.png")'.format(color = 'red', number = num + 1)) for num in range(5)],[eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadMage{number}a.png")'.format(color = 'red', number = num + 1)) for num in range(5)]],
+                    [[eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadZom{number}.png")'.format(color='red', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadZom{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]],
+                    [[eval('pygame.image.load("sprites/Red Enemy Splits/{color}Load{number}.png")'.format(color='red', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}Load{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]]]
+
+        self.water_split = [[[eval('pygame.image.load("sprites/Blue Enemy Splits/{color}LoadMage{number}.png")'.format(color = 'blue', number = num + 1)) for num in range(5)],[eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadMage{number}a.png")'.format(color = 'red', number = num + 1)) for num in range(5)]],
+                  [[eval('pygame.image.load("sprites/Blue Enemy Splits/{color}LoadZom{number}.png")'.format(color='blue', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadZom{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]],
+                   [[eval('pygame.image.load("sprites/Blue Enemy Splits/{color}Load{number}.png")'.format(color='blue', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}Load{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]]]
+
+        self.earth_split = [[[eval('pygame.image.load("sprites/Green Enemy Splits/{color}LoadMage{number}.png")'.format(color = 'green', number = num + 1)) for num in range(5)],[eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadMage{number}a.png")'.format(color = 'red', number = num + 1)) for num in range(5)]],
+                   [[eval('pygame.image.load("sprites/Green Enemy Splits/{color}LoadZom{number}.png")'.format(color='green', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadZom{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]],
+                   [[eval('pygame.image.load("sprites/Green Enemy Splits/{color}Load{number}.png")'.format(color='green', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}Load{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]]]
+
+        self.light_split = [[[eval('pygame.image.load("sprites/Yellow Enemy Splits/{color}LoadMage{number}.png")'.format(color = 'Yellow', number = num + 1)) for num in range(5)],[eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadMage{number}a.png")'.format(color = 'red', number = num + 1)) for num in range(5)]],
+                   [[eval('pygame.image.load("sprites/Yellow Enemy Splits/{color}LoadZom{number}.png")'.format(color='Yellow', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadZom{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]],
+                   [[eval('pygame.image.load("sprites/Yellow Enemy Splits/{color}Load{number}.png")'.format(color='Yellow', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}Load{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]]]
+
+        self.dark_split = [[[eval('pygame.image.load("sprites/Purple Enemy Splits/{color}LoadMage{number}.png")'.format(color = 'purple', number = num + 1)) for num in range(5)],[eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadMage{number}a.png")'.format(color = 'red', number = num + 1)) for num in range(5)]],
+                   [[eval('pygame.image.load("sprites/Purple Enemy Splits/{color}LoadZom{number}.png")'.format(color='purple', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}LoadZom{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]],
+                   [[eval('pygame.image.load("sprites/Purple Enemy Splits/{color}Load{number}.png")'.format(color='purple', number=num + 1)) for num in range(5)], [eval('pygame.image.load("sprites/Red Enemy Splits/{color}Load{number}a.png")'.format(color='red', number=num + 1)) for num in range(5)]]]
+
         self.boxes = [pygame.image.load('sprites/RedBox1.png'), pygame.image.load('sprites/RedBox2.png')]
 
     def check_valid_spell(self, m_c, spell, target):
         if spell in m_c.game_spells:
             m_c.exec_turn(target, spell)
-            print(True)
         else:
             m_c.mistake()
 
@@ -86,7 +105,8 @@ class Game_Logic:
             if prefix == 'ledo magis hosti':
                 for target in targets:
                     m_c.exec_aoe(target, spell)
-            print(True)
+            elif prefix == 'sonticus':
+                m_c.exec_boost(targets[target_num], spell)
         else:
             m_c.mistake()
 
@@ -114,10 +134,10 @@ class Game_Logic:
         return False
 
     def all_enemies_dead(self, enemy_party):
-        return all([not self.health_is_gt_0(enemy) for enemy in enemy_party])
+        return all([(not self.health_is_gt_0(enemy)) for enemy in enemy_party])
 
     def new_enemies(self, level, text_box, difficulty_scaling):
-            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2,text_box) for i in range(randint(0, difficulty_scaling))]
+            return [Wizard([element for element in Game_Logic.elements][randint(0,4)], level // 2,text_box) for i in range(randint(1, difficulty_scaling))]
 
 
 
@@ -126,23 +146,24 @@ class Game_Logic:
         exec("screen.blit(self.{element}_pics[wizard_element_pic // 15], (277, 224))".format(element=character_party[0].element))
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element=enemy_party[i].element))
+                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 35, 55))".format(element=enemy_party[i].element))
                 exec("screen.blit(self.{element}_en[{monster_type}][current_pics[i]//15], (i*100 + 10, 95))".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type))
                 exec("screen.blit(self.{element}_en[enemy_party[i].monster_type][current_pics[i]//15], (i*100 + 10, 95))".format(element = enemy_party[i].element))
             else:
                 exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], (i*100 + 10, 95))".format(element=enemy_party[i].element))
         screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100,55))
 
-    def update_screen_attacking(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic): #animation
+    def update_screen_attacking(self, screen, character_party, enemy_party, current_pics, target_num, wizard_element_pic, spellbook, shifting): #animation
           #may move into settings
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55))".format(element = enemy_party[i].element))
+                exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 35, 55))".format(element = enemy_party[i].element))
                 exec("screen.blit(self.{element}_en_atk[{monster_type}], (i*100 + 10, 95))".format(element = enemy_party[i].element, monster_type = enemy_party[i].monster_type))
             else:
                 exec("screen.blit(self.{element}_en_dead[enemy_party[i].monster_type], (i*100 + 10, 95))".format(element=enemy_party[i].element))
-        pygame.display.update()
         screen.blit(self.boxes[current_pics[1] // 15], (target_num * 100,55))
+        if shifting:
+            spellbook.open(screen)
 
     def key_LR(self, event, target_num, enemy_party):    #moves the target and red box
         tn = target_num
@@ -165,6 +186,14 @@ class Game_Logic:
                     tn = len(enemy_party) - 1
             return tn
 
+    def LR_change(self, target_num, enemy_party):
+        tn = target_num
+        while not self.health_is_gt_0(enemy_party[tn]):
+            tn += 1
+            if tn == len(enemy_party):
+                tn = 0
+        return tn
+
     def gen_new_level(self, level_num, enemy_party): #returns a new enemy party list when the one in the current level has died
         for i in range(5):
             enemy_party.append(Wizard([element for element in Game_Logic.elements][randint(0,4)], level_num // 2))
@@ -172,15 +201,21 @@ class Game_Logic:
 
     def update_HP_bar(self, screen, m_c):
         m_c_hp = m_c.hp
-        HP_bar = pygame.Rect((50, 450 - 200*(m_c_hp/m_c.max_hp)), (15, 200*(m_c_hp/m_c.max_hp)))
+        HP_bar = pygame.Rect((50, 420 - 200*(m_c_hp / m_c.max_hp)), (15, 200*(m_c_hp / m_c.max_hp)))
+        screen.blit(pygame.image.load('sprites/heart.png'), (45, 420))
         screen.fill((255, 100, 100), HP_bar)
 
     def update_enemy_HP_bar(self, screen, enemy_party):
         for i in range(len(enemy_party)):
             if self.health_is_gt_0(enemy_party[i]):
-                exec("screen.fill((255,100,100), pygame.Rect(( i * 100 + 30, 200), (({enemy}.hp/{enemy}.max_hp) * 40, 6)))".format(enemy = 'enemy_party[i]'))
+                exec("screen.fill((255,100,100), pygame.Rect(( i * 100 + 30, 198), (({enemy}.hp/{enemy}.max_hp) * 40, 6)))".format(
+                        enemy='enemy_party[i]'))
+
+    def update_enemy_atk_bar(self, screen, enemy_party, time_counter):
+        for i in range(len(enemy_party)):
+            if self.health_is_gt_0(enemy_party[i]):
+                exec("screen.fill((255,255,0), pygame.Rect(( i * 100 + 30, 204), ({time_counter} * 5, 2)))".format(time_counter=str(time_counter // 1000)))
 
     def spawn_enemies(self, screen, enemy_party, current_pics, row):
         for i in range(len(enemy_party)):
-            exec("screen.blit(self.{element}_pics[current_pics[i] // 15], ( i * 100 + 25, 55), (0,0,50,50) )".format(
-                element=enemy_party[i].element))
+            exec("screen.blit(self.{element}_split[enemy_party[i].monster_type][current_pics[i] // 15][row], (i*100 + 10, 95))".format(element=enemy_party[i].element))

@@ -13,8 +13,9 @@ class Spellbook:
         self.heal = self.font.render('Heal: confervo', False, (0, 0, 0))
         self.multi = self.font.render('Multi: ledo magis hosti', False, (0,0,0))
         self.change = self.font.render('Change: praestituo', False, (0,0,0))
+        self.empower = self.font.render('Empower: sonticus', False, (0, 0, 0))
         self.spellbook = [self.fire, self.water, self.earth, self.dark, self.light, self.heal]
-        self.prefixes = [self.multi, self.change]
+        self.prefixes = [self.multi, self.change, self.empower]
 
     def open(self, screen):
         screen.blit(pygame.image.load('sprites/bigScroll.png'), (50, 45))

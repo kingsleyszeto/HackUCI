@@ -8,7 +8,7 @@ class Wizard():
                      'heal': 'heal'}
     aoe_to_text = {'fire': 'Explosion', 'water': 'Flood', 'earth': 'Earthquake', 'dark': 'Requiem',
                    'light': 'Solar Flare'}
-    game_prefixes = {'ledo magis hosti': 'multi'}
+    game_prefixes = {'ledo magis hosti': 'multi', 'sonticus': 'boost'}
 
     def __init__(self, element, level, text_box, max_hp = 45, is_main = False):
         self.element = element
@@ -50,12 +50,39 @@ class Wizard():
                 damage = int((2 * self.damage - self.defense) // 2)
             if Wizard.game_spells[spell] == self.element:
                 damage *= 1.5
+            elif Wizard.game_spells[spell] == Wizard.elements[self.element]:
+                damage *= 0.5
             target.hp -= damage
             if self.is_main: self.text_box.change_console('Zalvin casts ' + Wizard.spell_to_text[Wizard.game_spells[spell]] + '!')
 
     def mistake(self):
         self.hp -= 5
         self.text_box.change_console('Zalvin bit his tongue! - 5HP')
+
+    def exec_boost(self, target, spell):
+        if spell == 'confervo':
+            if self.hp + 10 > self.max_hp:
+                heal = self.max_hp - self.hp
+            else:
+                heal = 20
+            self.hp += heal
+            self.text_box.change_console('Zalvin casts empowered heal!')
+        else:
+            if Wizard.elements[Wizard.game_spells[spell]] == target.element:
+                damage = int(2 * self.damage - self.defense) * 0.4
+            elif Wizard.elements[target.element] == Wizard.game_spells[spell]:
+                damage = int((2 * self.damage - self.defense) // 4) * 0.4
+            elif Wizard.game_spells[spell] == target.element:
+                damage = int(((2 * self.damage - self.defense) // 2) * 0.8) * 0.4
+            else:
+                damage = int((2 * self.damage - self.defense) // 2) * 0.4
+            if Wizard.game_spells[spell] == self.element:
+                damage *= 1.5
+            elif Wizard.game_spells[spell] == Wizard.elements[self.element]:
+                damage *= 0.5
+            target.hp -= damage
+            if self.is_main: self.text_box.change_console(
+                'Zalvin casts empowered ' + Wizard.spell_to_text[Wizard.game_spells[spell]] + '!')
 
     def exec_aoe(self, target, spell):
         if spell == 'confervo':
@@ -74,6 +101,10 @@ class Wizard():
                 damage = int(((2 * self.damage - self.defense) // 2) * 0.8) * 0.3
             else:
                 damage = int((2 * self.damage - self.defense) // 2) * 0.3
+            if Wizard.game_spells[spell] == self.element:
+                damage *= 1.5
+            elif Wizard.game_spells[spell] == Wizard.elements[self.element]:
+                damage *= 0.5
             target.hp -= damage
             if self.is_main: self.text_box.change_console(
                 'Zalvin casts ' + Wizard.aoe_to_text[Wizard.game_spells[spell]] + '!')
